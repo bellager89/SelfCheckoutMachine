@@ -1,6 +1,6 @@
 Követelmények: SQL Server 2016+, Visual Studio 2022
 
-Első indításnál:
+* Első indításnál:
 	- SelfCheckoutMachine.WebApi-t be kell állítani StartUp Projectnek a Visual Studio-ban
 	- SelfCheckoutMachine.WebApi/appsettings.json-ban a 'ConnectionString' át kell írni a mmegfelelő értékre
 	- Package Manager console-ban Default projectnek be kell állítani: SelfCheckoutMachine.DataAccess
@@ -8,12 +8,13 @@ Első indításnál:
 	- Kestrelen (alapbeállítás) futtassuk az alkalmazásunkat
 
 Az alkalamzás tartalmaz swagger felületet így ott könnyen ki lehet próbálni a funkciókat.
+
 Végpontok:
-GET https://localhost:7180/api/v1/Stock
-POST https://localhost:7180/api/v1/Stock
-POST https://localhost:7180/api/v1/Checkout
-GET https://localhost:7180/api/v1/BlockedBills
-POST https://localhost:7180/api/v1/CheckoutInEur
+- GET https://localhost:7180/api/v1/Stock
+- POST https://localhost:7180/api/v1/Stock
+- POST https://localhost:7180/api/v1/Checkout
+- GET https://localhost:7180/api/v1/BlockedBills
+- POST https://localhost:7180/api/v1/CheckoutInEur
 
 Az EUR checkoutnál a könnyebség kedvéért mi adjuk be a váltószámot (exchangeRate) ami azt jellemzi 1 EUR hány HUF.
 A EUR megoldást nagyon leegyszerűsítettem a háttérben a gépünk egy valutaváltógéppel van összekötve, 
