@@ -7,7 +7,7 @@ using SelfCheckoutMachine.Models;
 namespace SelfCheckoutMachine.WebApi.Controllers
 {
     [ApiVersion("1")]
-    [Route("api/v{version:apiVersion}/[controller]")]
+    [Route("api/v{version:apiVersion}")]
     [ApiController]
     public class StockController : ControllerBase
     {
@@ -19,8 +19,8 @@ namespace SelfCheckoutMachine.WebApi.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet]
-        public async Task<Dictionary<string, int>> Get()
+        [HttpGet(nameof(Stock))]
+        public async Task<Dictionary<string, int>> Stock()
         {
             var query = new GetStockQuery();
             var result = await _mediator.Send(query);
@@ -28,8 +28,8 @@ namespace SelfCheckoutMachine.WebApi.Controllers
             return result;
         }
 
-        [HttpPost]
-        public async Task<Dictionary<string, int>> Post([FromBody] Dictionary<string, int> values)
+        [HttpPost(nameof(Stock))]
+        public async Task<Dictionary<string, int>> Stock([FromBody] Dictionary<string, int> values)
         {
             var query = new AddStockCommand { Values = values };
             var result = await _mediator.Send(query);
@@ -40,7 +40,10 @@ namespace SelfCheckoutMachine.WebApi.Controllers
         [HttpPost(nameof(Checkout))]
         public async Task<Dictionary<string, int>> Checkout([FromBody] CheckoutModel model)
         {
-            throw new NotImplementedException();
+            var query = new CheckoutCommand { Model = model };
+            var result = await _mediator.Send(query);
+
+            return result;
         }
     }
 }

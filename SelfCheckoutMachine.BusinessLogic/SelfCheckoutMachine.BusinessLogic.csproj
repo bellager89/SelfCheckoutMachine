@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SelfCheckoutMachine.DataAccess\SelfCheckoutMachine.DataAccess.csproj" />
+    <ProjectReference Include="..\SelfCheckoutMachine.Models\SelfCheckoutMachine.Models.csproj" />
   </ItemGroup>
 
 </Project>

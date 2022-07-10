@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using SelfCheckoutMachine.BusinessLogic.Extensions;
 using SelfCheckoutMachine.DataAccess;
 using SelfCheckoutMachine.Entities;
-using SelfCheckoutMachine.Enums;
 
 namespace SelfCheckoutMachine.BusinessLogic.Commands
 {
@@ -21,23 +20,9 @@ namespace SelfCheckoutMachine.BusinessLogic.Commands
 
         public async Task<Dictionary<string, int>> Handle(AddStockCommand request, CancellationToken cancellationToken)
         {
-            var currencies = request.Values.Select(x => new Currency { Bill = (BillType)int.Parse(x.Key), Amount = x.Value });
+            var currencies = request.Values.Select(x => new Currency { Bill = x.Key.ConvertToBillType(), Amount = x.Value, ValueInHuf = decimal.Parse(x.Key) });
             var existingCurrencies = await DataContext.Currencies.ToListAsync(cancellationToken: cancellationToken);
-
-            foreach (var curr in currencies)
-            {
-                var existingCurr = existingCurrencies.FirstOrDefault(x => x.Bill == curr.Bill);
-                if (existingCurr != null)
-                {
-                    existingCurr.Amount += curr.Amount;
-                }
-                else
-                {
-                    curr.ValueInHuf = (decimal)curr.Bill;
-                    curr.ValueInEur = curr.Bill.ValueInEur(300);
-                    DataContext.Currencies.Add(curr);
-                }
-            }
+            AddBills(currencies, existingCurrencies);
 
             await DataContext.SaveChangesAsync(cancellationToken);
 
