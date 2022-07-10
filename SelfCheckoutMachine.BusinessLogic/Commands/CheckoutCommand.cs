@@ -61,7 +61,7 @@ namespace SelfCheckoutMachine.BusinessLogic.Commands
             AddBills(insertedCurrencies, existingCurrencies);
             var changeInHuf = sumOfInserted - request.Model.Price;
 
-            var result = GetCombinations(GetPossibleBillsInDescendingOrder(existingCurrencies, changeInHuf), changeInHuf);
+            var result = GetBestCombination(GetPossibleBillsInDescendingOrder(existingCurrencies, changeInHuf), changeInHuf);
 
             if (result != null)
             {
@@ -79,46 +79,6 @@ namespace SelfCheckoutMachine.BusinessLogic.Commands
             throw new UserException("Don't have the necessary bills for change!");
         }
 
-        public static IEnumerable<int> GetCombinations(int[] set, decimal sum, List<int> values = null)
-        {
-            if (values == null)
-            {
-                values = new List<int>();
-            }
-
-            for (var i = 0; i < set.Length; i++)
-            {
-                var left = sum - set[i];
-                values.Add(set[i]);
-                if (left == 0)
-                {
-                    return values;
-                }
-                else
-                {
-                    var possible = set.Skip(i + 1).Where(n => n <= left).ToArray();
-                    if (possible.Length > 0)
-                    {
-                        return GetCombinations(possible, left, values);
-                    }
-                }
-            }
-
-            return null;
-        }
-
-        public static int[] GetPossibleBillsInDescendingOrder(List<Currency> currencies, decimal changeInHuf)
-        {
-            var retVal = new List<int>();
-            foreach (var curr in currencies.Where(x => x.ValueInHuf <= changeInHuf).OrderByDescending(x => x.ValueInHuf))
-            {
-                for (int i = 0; i < curr.Amount; i++)
-                {
-                    retVal.Add((int)curr.Bill);
-                }
-            }
-
-            return retVal.ToArray();
-        }
+        
     }
 }

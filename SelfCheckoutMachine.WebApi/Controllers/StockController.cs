@@ -45,5 +45,14 @@ namespace SelfCheckoutMachine.WebApi.Controllers
 
             return result;
         }
+
+        [HttpGet(nameof(BlockedBills))]
+        public async Task<List<string>> BlockedBills(int price)
+        {
+            var query = new BlockedBillsQuery { Price = price };
+            var result = await _mediator.Send(query);
+
+            return result;
+        }
     }
 }
