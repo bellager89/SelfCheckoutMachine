@@ -6,7 +6,6 @@ namespace SelfCheckoutMachine.BusinessLogic.Queries
 {
     public class GetStockQuery : IRequest<Dictionary<string, int>>
     {
-        public long Id { get; set; }
     }
 
     public class GetStockQueryHandler : HandlerBase, IRequestHandler<GetStockQuery, Dictionary<string, int>>
