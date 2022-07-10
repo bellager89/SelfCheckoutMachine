@@ -54,5 +54,14 @@ namespace SelfCheckoutMachine.WebApi.Controllers
 
             return result;
         }
+
+        [HttpPost(nameof(CheckoutInEur))]
+        public async Task<Dictionary<string, int>> CheckoutInEur([FromBody] CheckoutInEurModel model)
+        {
+            var query = new CheckoutInEurCommand { Model = model };
+            var result = await _mediator.Send(query);
+
+            return result;
+        }
     }
 }

@@ -21,5 +21,23 @@ namespace SelfCheckoutMachine.BusinessLogic.Extensions
 
             throw new UserException($"{value} {errorMessage}");
         }
+
+        public static EurBillType ConvertToEurBillType(this string value)
+        {
+            const string errorMessage = "is not valid, acceptable values: 1, 2, 5, 10, 20, 50, 100, 200, 500";
+            if (int.TryParse(value, out int intVal))
+            {
+                try
+                {
+                    return (EurBillType)intVal;
+                }
+                catch
+                {
+                    throw new UserException($"{value} {errorMessage}");
+                }
+            }
+
+            throw new UserException($"{value} {errorMessage}");
+        }
     }
 }

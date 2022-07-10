@@ -17,7 +17,6 @@ namespace SelfCheckoutMachine.DataAccess
             modelBuilder.Entity<Currency>().Property(x => x.Id).UseIdentityColumn();
             modelBuilder.Entity<Currency>().Property(p => p.Bill).IsRequired();
             modelBuilder.Entity<Currency>().Property(p => p.ValueInHuf).IsRequired();
-            modelBuilder.Entity<Currency>().Property(p => p.ValueInEur).IsRequired(); 
             modelBuilder.Entity<Currency>().Property(p => p.Amount).IsRequired();
         }
     }
