@@ -1,10 +1,11 @@
-Követelmények: SQL Server 2016+, Visual Studio 2022
+Követelmények: Visual Studio 2022, Adatbazis mód esetén: SQL Server 2016+
 
 * Első indításnál:
 	- SelfCheckoutMachine.WebApi-t be kell állítani StartUp Projectnek a Visual Studio-ban
-	- SelfCheckoutMachine.WebApi/appsettings.json-ban a 'ConnectionString' át kell írni a megfelelő értékre
-	- Package Manager console-ban Default projectnek be kell állítani: SelfCheckoutMachine.DataAccess
-	- Package Manager console-ban futtatni a következő parancsot: EntityFrameworkCore\Update-Database - ez létrehozza az adatbázisunkat
+	- SelfCheckoutMachine.WebApi/appsettings.json-ben UseInMemoryDatabase = true esetén nincs további teendő, ilyenkor memóriában lesz az adatbáázis a könnyebb tesztelés érdekében, de ez mindig üresen fog indulni, mehet a futtatás
+	- UseInMemoryDatabase=false esetén: SelfCheckoutMachine.WebApi/appsettings.json-ban a 'ConnectionString' át kell írni a megfelelő értékre
+	- UseInMemoryDatabase=false esetén: Package Manager console-ban Default projectnek be kell állítani: SelfCheckoutMachine.DataAccess
+	- UseInMemoryDatabase=false esetén: Package Manager console-ban futtatni a következő parancsot: EntityFrameworkCore\Update-Database - ez létrehozza az adatbázisunkat
 	- Kestrelen (alapbeállítás) futtassuk az alkalmazásunkat
 
 Az alkalamzás tartalmaz swagger felületet így ott könnyen ki lehet próbálni a funkciókat.
